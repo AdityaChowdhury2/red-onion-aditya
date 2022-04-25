@@ -1,0 +1,11 @@
+.customBtn{
+    margin-right: 10px;
+    font-weight:bold;
+    background-color:#fff;
+    border:none;
+    border-radius: 0;
+}
+.customBtn-active{
+    color: red;
+    border-bottom: 3px solid red;
+}
