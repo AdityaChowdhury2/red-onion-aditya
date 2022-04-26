@@ -1,4 +1,8 @@
-a{
+ul li a{
+    color: white;
+    text-decoration:none;
+}
+div a{
     color: white;
     text-decoration:none;
 }

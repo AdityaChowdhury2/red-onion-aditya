@@ -1,14 +1,18 @@
 
 import React from 'react';
 import Banner from '../Banner/Banner';
+import Login from '../Login/Login';
 import Menu from '../Menu/Menu';
+import SingleItem from '../SingleItem/SingleItem';
 
 const Home = () => {
 
     return (
         <>
-            <Banner />
-            <Menu />
+            <Login />
+            {/* <Banner />
+            <SingleItem /> */}
+            {/* <Menu /> */}
         </>
     );
 };
