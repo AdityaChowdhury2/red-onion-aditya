@@ -6,8 +6,7 @@ const CardItem = ({ food }) => {
     const imageUrl = `images/breakfast/${image}.png`;
     console.log(imageUrl);
     const cardStyle = {
-        width: '20rem',
-        border: 'none',
+        width: '18rem',
         textAlign: 'center',
         padding: '10px 30px'
     }
