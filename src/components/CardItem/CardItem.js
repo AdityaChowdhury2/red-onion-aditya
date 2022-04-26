@@ -1,18 +1,25 @@
 import React from 'react';
-import { Card, CardGroup } from 'react-bootstrap';
-
+import { Card, } from 'react-bootstrap';
+import './CardItem.css'
 const CardItem = ({ food }) => {
     const { name, description, image, price } = food;
-    const imageUrl = `	http://localhost:3000/images/${image}.png`;
+    const imageUrl = `images/breakfast/${image}.png`;
     console.log(imageUrl);
+    const cardStyle = {
+        width: '20rem',
+        border: 'none',
+        textAlign: 'center',
+        padding: '10px 30px'
+    }
+
     return (
-        <div className="col-md-4">
-            <Card style={{ width: '18rem', border: 'none', textAlign: 'center' }}>
+        <div className="col-md-4 d-flex justify-content-center my-3">
+            <Card style={cardStyle}>
                 <Card.Img variant="top" src={imageUrl} />
                 <Card.Body>
-                    <Card.Title>{name}</Card.Title>
-                    <Card.Text>
-                        {description}
+                    <Card.Title><h5>{name}</h5></Card.Title>
+                    <Card.Text >
+                        <p>{description}</p>
                     </Card.Text>
                     <Card.Text>
                         <h6>${price}</h6>

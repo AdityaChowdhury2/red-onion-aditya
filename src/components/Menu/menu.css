@@ -23,6 +23,8 @@
     transition: transform 0.25s ease-out;
 }
 .customBtn:hover:after{
-
     transform: scaleX(0.5);
+}
+.customBtn:active{
+    
 }

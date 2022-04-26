@@ -1,0 +1,19 @@
+*{
+    transition: 0.5s ease-in-out
+}
+.card h5{
+font-size:18px;
+letter-spacing: 1px;
+}
+.card p{
+    letter-spacing: 0.5px;
+}
+.card h6{
+
+}
+.card:hover{
+    cursor: pointer;
+    transform:scale(1.1);
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px grey;
+}
