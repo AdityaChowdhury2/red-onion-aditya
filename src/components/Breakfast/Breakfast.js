@@ -1,18 +1,13 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
-import { foods } from '../../foods';
+import { foods } from '../../Database/foods';
 import CardItem from '../CardItem/CardItem';
 
-const Breakfast = () => {
-    // const { breakfast } = breakfast;
-    const { breakfast, dinner, lunch } = foods;
-    // console.log(breakfast)
-    // breakfast.map(food => console.log(food))
+const Breakfast = ({ menu }) => {
+    console.log(menu);
     return (
         <Row>
-            {
-                breakfast.map(food => <CardItem food={food} />)
-            }
+            {menu.map(food => <CardItem key={food.id} food={food} />)}
         </Row>
     );
 };

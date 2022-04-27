@@ -5,7 +5,7 @@ import './footer.css'
 const Footer = () => {
     return (
         <div style={{ backgroundColor: 'black', marginTop: '30px' }}>
-            <Container className='pt-5'>
+            <Container className='pt-5 mt-3'>
                 <Row >
                     <Col md={6}>
                         <img src='/images/logo2.png' alt="" />

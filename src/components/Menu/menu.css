@@ -16,15 +16,17 @@
     position: absolute;
     width: 100%;
     transform: scaleX(0);
-    height: 4px;
+    height: 3px;
     bottom: 0;
     left: 0;
     background-color: red;
     transition: transform 0.25s ease-out;
 }
-.customBtn:hover:after{
+.customBtn:focus:after{
     transform: scaleX(0.5);
 }
-.customBtn:active{
-    
+.customBtn:focus {
+    color: red;
+    box-shadow: none;
+    background-color:none !important;
 }

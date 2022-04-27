@@ -25,15 +25,19 @@ const Login = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input type="text" placeholder="Name"
                         {...register("Name", { required: true, maxLength: 80 })} />
+                    {errors.Name && <span className="text-danger">Name is required</span>}
                     <br />
                     <input type="text" placeholder="Email" {...register("Email",
                         { required: true, pattern: /^\S+@\S+$/i })} />
+                    {errors.Email && <span className="text-danger">Email is required</span>}
                     <br />
                     <input type="text" placeholder="Password" {...register("Password",
                         { required: true, maxLength: 10, pattern: /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/i })} />
+                    {errors.Password && <span className="text-danger">Password is required</span>}
                     <br />
-                    <input type="text" placeholder="Confirm Password" {...register("Confirm Password",
+                    <input type="text" placeholder="Confirm Password" {...register("ConfirmPassword",
                         { required: true, maxLength: 10, pattern: /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/i })} />
+                    {errors.ConfirmPassword && <span className="text-danger">Please enter your password again</span>}
                     <br />
                     <input type="submit" className='btn btn-danger' />
                 </form>

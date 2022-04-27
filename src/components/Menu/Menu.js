@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, CardGroup, Col, Container, Row } from 'react-bootstrap';
-import { whyChoseUsCard } from '../../whyChoseUs';
+import { foods } from '../../Database/foods';
+import { whyChoseUsCard } from '../../Database/whyChoseUs';
 import Breakfast from '../Breakfast/Breakfast';
-// import whyChoseUsCard from '../../whyChoseUs';
-import CardItem from '../CardItem/CardItem';
 import './menu.css'
 
 const Menu = () => {
+
+    const { breakfast, lunch, dinner } = foods;
+    const [menu, setMenu] = useState(breakfast);
+    // let isActive = false;
+    const handleClick = (e) => {
+        if (e.target.name === 'Lunch') {
+            // isActive = true
+            setMenu(lunch);
+        }
+        if (e.target.name === 'Dinner') {
+            // isActive = true
+            setMenu(dinner);
+        }
+        if (e.target.name === 'Breakfast') {
+            // isActive = true
+            setMenu(breakfast);
+        }
+        console.log(menu);
+    }
+
+
     return (
         <Container>
-
             <div className="my-5 d-flex justify-content-center">
-                <Button variant="light" className='customBtn'>Breakfast</Button>
-                <Button variant="light" className='customBtn'>Lunch</Button>
-                <Button variant="light" className='customBtn'>Dinner</Button>
+                <button name="Breakfast" className="customBtn" onClick={handleClick}>Breakfast</button>
+                <button name="Lunch" className='customBtn' onClick={handleClick}>Lunch</button>
+                <button name="Dinner" className='customBtn' onClick={handleClick}>Dinner</button>
             </div>
             <div >
-                <Breakfast></Breakfast>
+                < Breakfast menu={menu} />
 
             </div>
             < div className="my-5 d-flex justify-content-center">
@@ -29,7 +48,7 @@ const Menu = () => {
             <div>
                 <Row xs={1} md={3} className="g-4 my-3">
                     {whyChoseUsCard.map((card) => (
-                        <Col>
+                        <Col key={card.id}>
                             <Card>
                                 <Card.Img variant="top" src={card.image} />
                                 <Card.Body className="my-3 d-flex justify-content-center">
@@ -48,7 +67,7 @@ const Menu = () => {
                     ))}
                 </Row>
             </div>
-        </Container>
+        </Container >
     );
 };
 
