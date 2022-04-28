@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Banner from '../Banner/Banner';
 import Cart from '../Cart/Cart';
 import Footer from '../Footer/Footer';
@@ -10,11 +10,11 @@ import PlaceOrder from '../PlaceOrder/PlaceOrder';
 import SingleItem from '../SingleItem/SingleItem';
 
 const Home = () => {
-
+    const [cart, setCart] = useState([]);
     return (
         <>
             <Banner />
-            <Menu />
+            <Menu cart={cart} setCart={setCart} />
         </>
     );
 };

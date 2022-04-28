@@ -1,18 +1,20 @@
 import React from 'react';
 import { Col, Container, FormControl, InputGroup, Row, Button } from 'react-bootstrap';
 
-const SingleItem = () => {
+const SingleItem = ({ singleItem }) => {
+    console.log(singleItem);
+    const { name, description, price, image } = singleItem;
     return (
         <div>
             <Container>
                 <Row className='my-5'>
                     <Col className='d-flex align-content-center flex-wrap'>
                         <div>
-                            <h1>Light Breakfast</h1>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem nam at quod saepe consequuntur soluta. Ut itaque suscipit sunt dolore maiores, dolores commodi officiis consequuntur!</p>
+                            <h1>{name}</h1>
+                            <p>{description}</p>
                         </div>
                         <div className="mt-3 d-flex justify-content-left">
-                            <h1 style={{ fontSize: '45px' }}>$52</h1>
+                            <h1 style={{ fontSize: '45px' }}>${price}</h1>
                             <div style={{
                                 display: 'block',
                                 fontSize: '25px',
@@ -28,7 +30,7 @@ const SingleItem = () => {
                             </div>
                         </div>
                     </Col>
-                    <Col><img src="images/cheese-close-up-diet-61180.png" alt="" style={{ width: '100%' }} /></Col>
+                    <Col><img src={image} alt="" style={{ width: '100%' }} /></Col>
                 </Row>
             </Container>
         </div>

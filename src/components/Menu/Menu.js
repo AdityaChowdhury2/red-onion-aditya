@@ -5,25 +5,28 @@ import { whyChoseUsCard } from '../../Database/whyChoseUs';
 import Breakfast from '../Breakfast/Breakfast';
 import './menu.css'
 
-const Menu = () => {
-
+const Menu = ({ cart, setCart }) => {
+    const [singleItem, setSingleItem] = useState({ isSingleItem: false });
     const { breakfast, lunch, dinner } = foods;
     const [menu, setMenu] = useState(breakfast);
     // let isActive = false;
     const handleClick = (e) => {
         if (e.target.name === 'Lunch') {
-            // isActive = true
             setMenu(lunch);
+            const singleItemState = { ...lunch, isSingleItem: false }
+            setSingleItem(singleItemState);
         }
         if (e.target.name === 'Dinner') {
-            // isActive = true
+            const singleItemState = { ...dinner, isSingleItem: false }
+            setSingleItem(singleItemState);
             setMenu(dinner);
         }
         if (e.target.name === 'Breakfast') {
-            // isActive = true
+            const singleItemState = { ...breakfast, isSingleItem: false }
+            setSingleItem(singleItemState);
             setMenu(breakfast);
         }
-        console.log(menu);
+        // console.log(menu);
     }
 
 
@@ -35,7 +38,7 @@ const Menu = () => {
                 <button name="Dinner" className='customBtn' onClick={handleClick}>Dinner</button>
             </div>
             <div >
-                < Breakfast menu={menu} />
+                <Breakfast menu={menu} singleItem={singleItem} setSingleItem={setSingleItem} />
 
             </div>
             < div className="my-5 d-flex justify-content-center">
