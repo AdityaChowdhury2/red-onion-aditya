@@ -10,11 +10,11 @@ import PlaceOrder from '../PlaceOrder/PlaceOrder';
 import SingleItem from '../SingleItem/SingleItem';
 
 const Home = () => {
-    const [cart, setCart] = useState([]);
+
     return (
         <>
             <Banner />
-            <Menu cart={cart} setCart={setCart} />
+            <Menu />
         </>
     );
 };

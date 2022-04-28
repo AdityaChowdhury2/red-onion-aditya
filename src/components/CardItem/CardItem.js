@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Card, } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './CardItem.css'
-const CardItem = ({ food, menu, handleClick }) => {
+const CardItem = ({ food, menu, handleAddFood }) => {
+
     const { name, description, image, price } = food;
     // console.log(menu);
     // console.log(food);
@@ -15,7 +16,7 @@ const CardItem = ({ food, menu, handleClick }) => {
     };
 
     return (
-        <div className="col-md-4 d-flex justify-content-center my-3" onClick={() => handleClick(food)}>
+        <div className="col-md-4 d-flex justify-content-center my-3" onClick={() => handleAddFood(food)}>
             <Card style={cardStyle}>
                 <Card.Img variant="top" src={image} />
                 <Card.Body>
