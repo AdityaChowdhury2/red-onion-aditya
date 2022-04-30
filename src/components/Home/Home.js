@@ -9,12 +9,12 @@ import Menu from '../Menu/Menu';
 import PlaceOrder from '../PlaceOrder/PlaceOrder';
 import SingleItem from '../SingleItem/SingleItem';
 
-const Home = () => {
+const Home = ({ cart, setCart }) => {
 
     return (
         <>
             <Banner />
-            <Menu />
+            <Menu cart={cart} setCart={setCart} />
         </>
     );
 };

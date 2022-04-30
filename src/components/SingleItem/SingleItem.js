@@ -1,10 +1,14 @@
 import React from 'react';
 import { Col, Container, FormControl, InputGroup, Row, Button } from 'react-bootstrap';
 
-const SingleItem = ({ singleItem, handleMinusButtonClick, handlePlusButtonClick }) => {
+const SingleItem = ({ singleItem, handleMinusButtonClick, handlePlusButtonClick, cart }) => {
     // console.log(singleItem);
     const { name, description, price, image, key } = singleItem;
-
+    const food = { key, name, description, image, price };
+    const sameFood = cart.find(pd => pd.key === key);
+    const productTotalPrice = price * sameFood.quantity;
+    const fixedPrice = productTotalPrice.toFixed(2);
+    // console.log(food);
     return (
         <div>
             <Container>
@@ -15,7 +19,7 @@ const SingleItem = ({ singleItem, handleMinusButtonClick, handlePlusButtonClick 
                             <p>{description}</p>
                         </div>
                         <div className="mt-3 d-flex justify-content-left">
-                            <h1 style={{ fontSize: '45px' }}>${price}</h1>
+                            <h1 style={{ fontSize: '45px' }}>${fixedPrice}</h1>
                             <div style={{
                                 display: 'block',
                                 fontSize: '25px',
@@ -25,9 +29,9 @@ const SingleItem = ({ singleItem, handleMinusButtonClick, handlePlusButtonClick 
                                 padding: '5px',
 
                             }}>
-                                <button style={{ margin: '0 10px', background: 'none', border: 'none' }} onClick={() => handleMinusButtonClick(key)}>-</button>
-                                <span style={{ margin: '0 10px' }}>1</span>
-                                <button style={{ margin: '0 10px', background: 'none', border: 'none' }} onClick={() => handlePlusButtonClick(key)}>+</button>
+                                <button style={{ margin: '0 10px', background: 'none', border: 'none' }} onClick={() => handleMinusButtonClick(food)}>-</button>
+                                <span style={{ margin: '0 10px' }}>{sameFood.quantity}</span>
+                                <button style={{ margin: '0 10px', background: 'none', border: 'none' }} onClick={() => handlePlusButtonClick(food)}>+</button>
                             </div>
                         </div>
                     </Col>

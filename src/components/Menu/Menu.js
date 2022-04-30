@@ -38,11 +38,11 @@ const Menu = ({ cart, setCart }) => {
                 <button name="Dinner" className='customBtn' onClick={handleClick}>Dinner</button>
             </div>
             <div >
-                <Breakfast menu={menu} singleItem={singleItem} setSingleItem={setSingleItem} />
+                <Breakfast menu={menu} singleItem={singleItem} setSingleItem={setSingleItem} cart={cart} setCart={setCart} />
 
             </div>
             < div className="my-5 d-flex justify-content-center">
-                <Button variant="secondary" disabled>Checkout your Food</Button>
+                <Button variant="danger" disabled={cart.length ? false : true}>Checkout your Food</Button>
             </div>
             <div style={{ width: '600px' }}>
                 <h3>Why you Chose us?</h3>

@@ -1,18 +1,38 @@
-import { Paper } from '@mui/material';
+
 import { Box } from '@mui/system';
 import React from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { addOneItemToDb, removeOneItemFromDb } from '../../Database/fakedb';
+import CartItem from '../CartItem/CartItem';
 
-const Cart = () => {
-    const { register, watch, formState: { errors } } = useForm();
+const Cart = ({ cart, setCart }) => {
+    const { register, formState: { errors } } = useForm();
     // const onSubmit = data => console.log(data);
-    const handleSubmit = (event) => {
-
-        event.preventDefault();
+    const handlePlusButtonClick = (food) => {
+        const sameFood = cart.find(pd => pd.key === food.key);
+        sameFood.quantity += 1;
+        const otherFood = cart.filter(pd => pd.key !== food.key)
+        const newCart = [sameFood, ...otherFood];
+        setCart(newCart);
+        addOneItemToDb(food.key);
     }
-    const onChangeHandler = () => {
-
+    // console.log(cart);
+    const handleMinusButtonClick = (food) => {
+        const sameFood = cart.find(pd => pd.key === food.key);
+        if (sameFood.quantity > 1) {
+            sameFood.quantity -= 1;
+            const otherFood = cart.filter(pd => pd.key !== food.key)
+            const newCart = [sameFood, ...otherFood];
+            setCart(newCart);
+            removeOneItemFromDb(food.key)
+        }
+        else {
+            alert("Cannot decrease");
+        }
+    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
     }
     const handleBlur = event => {
         let isFieldValid = true;
@@ -97,19 +117,9 @@ const Cart = () => {
                     <p className='mb-1'>Arriving in 20-30 min</p>
                     <p className='mb-1'>205/11 Ghatforhadbeg</p>
 
-                    <Paper className="d-flex justify-content-around p-2 bg-light my-3" elevation={3}>
-                        <img src="/images/breakfast/breakfast1.png" alt="" style={{}} />
-                        <div className='mt-3'>
-                            <h6>Butter Nun</h6>
-                            <h4 className='text-danger'>$25</h4>
-                            <p className='text-secondary' style={{ fontSize: '10px' }}>Delivery free</p>
-                        </div>
-                        <div className="d-flex align-items-center">
-                            <button style={{ margin: '0 10px', background: 'none', border: 'none', fontSize: '20px' }}>-</button>
-                            <input value='04' onChange={onChangeHandler} style={{ width: '30px', border: '1px solid grey', fontSize: '20px', fontWeight: '600', textAlign: 'center' }} />
-                            <button style={{ margin: '0 10px', background: 'none', border: 'none', fontSize: '20px' }}>+</button>
-                        </div>
-                    </Paper>
+                    {cart.map(item =>
+                        <CartItem key={item.key} food={item} handlePlusButtonClick={handlePlusButtonClick} handleMinusButtonClick={handleMinusButtonClick} />
+                    )}
                     <Box sx={{
                         textAlign: 'center',
                     }}>
@@ -129,7 +139,7 @@ const Cart = () => {
                             <p style={{ fontSize: '30px' }}>Total</p>
                             <p style={{ fontSize: '30px' }}>$327</p>
                         </div>
-                        <Button variant="secondary" disabled style={{ width: '100%' }}>Place Order</Button>
+                        <Button variant="danger" disabled={cart.length ? false : true} style={{ width: '100%' }}>Place Order</Button>
 
                     </Box>
                 </Col>
