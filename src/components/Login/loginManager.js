@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from '../../firebase.config';
 import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseConfig } from "../../firebase.config";
 
 export const initializeLoginFramework = () => {
     const app = initializeApp(firebaseConfig);
