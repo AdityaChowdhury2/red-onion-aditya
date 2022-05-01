@@ -8,7 +8,7 @@ const Banner = () => {
         height: '100px',
         margin: 'auto'
     }
-    const image = "/images/bannerBackground.png";
+    const image = "/images/bannerBackground1.png";
     const bannerStyle = {
         height: '500px',
         backgroundImage: `url(${image})`,

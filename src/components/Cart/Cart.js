@@ -1,14 +1,31 @@
 
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+// import { useForm } from 'react-hook-form';
+import { UserContext } from '../../App';
 import { addOneItemToDb, removeOneItemFromDb } from '../../Database/fakedb';
 import CartItem from '../CartItem/CartItem';
 
 const Cart = ({ cart, setCart }) => {
-    const { register, formState: { errors } } = useForm();
+    const [loggedInUser] = useContext(UserContext)
+    // const { register, formState: { errors } } = useForm();
+    const [deliveryDetails, setDeliveryDetails] = useState({
+        email: loggedInUser.email,
+        phone: '',
+        flatNo: '',
+        address: '',
+        state: '',
+        success: false
+    });
     // const onSubmit = data => console.log(data);
+    const totalPrice = cart.reduce((price, food) => price + food.price * food.quantity, 0);
+    const totalQuantity = cart.reduce((quantity, food) => quantity + food.quantity, 0);
+    const tax = totalPrice * .18;
+    // const totalBeforeTax = 5.00 + totalPrice;
+    const totalAfterTax = totalPrice + tax + 5.00;
+    const fixingNumber = num => Number(num).toFixed(2);
     const handlePlusButtonClick = (food) => {
         const sameFood = cart.find(pd => pd.key === food.key);
         sameFood.quantity += 1;
@@ -32,6 +49,9 @@ const Cart = ({ cart, setCart }) => {
         }
     }
     const handleSubmit = (event) => {
+        const afterSubmission = { ...deliveryDetails }
+        afterSubmission.success = true
+        setDeliveryDetails(afterSubmission);
         event.preventDefault();
     }
     const handleBlur = event => {
@@ -40,10 +60,28 @@ const Cart = ({ cart, setCart }) => {
             isFieldValid = /\S+@\S+\.\S+/.test(event.target.value);
             isFieldValid && console.log(event.target.value);
         }
+        if (event.target.name === 'phone') {
+            isFieldValid = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(event.target.value);
+        }
+
+        if (isFieldValid) {
+            const deliveryInfo = { ...deliveryDetails };
+            deliveryInfo[event.target.name] = event.target.value;
+            console.log(deliveryInfo);
+            setDeliveryDetails(deliveryInfo);
+        }
     };
     const Select = React.forwardRef(({ name }, ref) => (
         <>
-            <select name={name} ref={ref} onBlur={handleBlur}>
+            <select name={name} ref={ref} value={deliveryDetails.state}
+                // onChange={(event) => {
+                //     const deliveryInfo = { ...deliveryDetails };
+                //     deliveryInfo[event.target.name] = event.target.value;
+                //     console.log(deliveryInfo);
+                //     setDeliveryDetails(deliveryInfo);
+                // }}
+                onChange={handleBlur}
+            >
                 <option value="">Select Your State</option>
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
                 <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
@@ -84,6 +122,7 @@ const Cart = ({ cart, setCart }) => {
             </select>
         </>
     ));
+    console.log(deliveryDetails)
     return (
         <Container>
             <Row className='d=flex justify-content-between'>
@@ -92,30 +131,31 @@ const Cart = ({ cart, setCart }) => {
                     <hr />
                     <form onSubmit={handleSubmit}>
                         {/* register your input into the hook by invoking the "register" function */}
-                        <input placeholder='Email' onBlur={handleBlur} {...register("Email", { required: true })} />
-                        {errors.Email && <span className="text-danger">Email id is required</span>}
+                        <input placeholder='Email' name='email' defaultValue={deliveryDetails.email} onBlur={handleBlur} />
 
-                        <input placeholder='Phone no' onBlur={handleBlur} {...register("Phone", { required: true })} />
-                        {errors.Phone && <span className="text-danger">Phone no is required</span>}
 
-                        <input placeholder='Flat No' onBlur={handleBlur} {...register("FlatNo", { required: true })} />
-                        {errors.FlatNo && <span className="text-danger">Flat no is required</span>}
+                        <input placeholder='Phone no' name="phone" defaultValue={deliveryDetails.phone} onBlur={handleBlur} />
+                        {/* {errors.Phone && <span className="text-danger">Phone no is required</span>} */}
 
-                        <input placeholder='Address' onBlur={handleBlur} {...register("Address", { required: true })} />
-                        {errors.Address && <span className="text-danger">Please Enter your address</span>}
+                        <input placeholder='Flat No' name="flatNo" defaultValue={deliveryDetails.flatNo} onBlur={handleBlur} />
+                        {/* {errors.FlatNo && <span className="text-danger">Flat no is required</span>} */}
+
+                        <input placeholder='Address' name='address' defaultValue={deliveryDetails.address} onBlur={handleBlur} />
+                        {/* {errors.Address && <span className="text-danger">Please Enter your address</span>} */}
                         <br />
                         <br />
-                        <Select onBlur={handleBlur} {...register("State", { required: true })} />
-                        {errors.State && <span className="text-danger"> Please Select your state</span>}
+                        <Select onBlur={handleBlur} name='state' />
+                        {/* {errors.State && <span className="text-danger"> Please Select your state</span>} */}
                         <br />
-                        <input type="submit" className='btn btn-danger' />
+                        <input type="submit" className='btn btn-danger' value='Save &#38; Continue' />
                     </form>
 
                 </Col>
                 <Col md={4} >
-                    <p className='mb-1'>From<b> Gulshan Plaza Restaurant</b></p>
+                    <p className='mb-1'>From<b> New Annapurna Restaurant</b></p>
                     <p className='mb-1'>Arriving in 20-30 min</p>
-                    <p className='mb-1'>205/11 Ghatforhadbeg</p>
+                    <p className='mb-1'>{deliveryDetails.phone}</p>
+                    <p className='mb-1'>{deliveryDetails.flatNo} {deliveryDetails.address} {deliveryDetails.state}</p>
 
                     {cart.map(item =>
                         <CartItem key={item.key} food={item} handlePlusButtonClick={handlePlusButtonClick} handleMinusButtonClick={handleMinusButtonClick} />
@@ -124,12 +164,12 @@ const Cart = ({ cart, setCart }) => {
                         textAlign: 'center',
                     }}>
                         <div className='d-flex justify-content-between'>
-                            <p>SubTotal 4 Item</p>
-                            <p>$320.00</p>
+                            <p>SubTotal {totalQuantity} Item</p>
+                            <p>${fixingNumber(totalPrice)}</p>
                         </div>
                         <div className='d-flex justify-content-between'>
                             <p>Tax</p>
-                            <p>$2.00</p>
+                            <p>${fixingNumber(tax)}</p>
                         </div>
                         <div className='d-flex justify-content-between'>
                             <p>Delivery fee</p>
@@ -137,14 +177,13 @@ const Cart = ({ cart, setCart }) => {
                         </div>
                         <div className='d-flex justify-content-between'>
                             <p style={{ fontSize: '30px' }}>Total</p>
-                            <p style={{ fontSize: '30px' }}>$327</p>
+                            <p style={{ fontSize: '30px' }}>${fixingNumber(totalAfterTax)}</p>
                         </div>
-                        <Button variant="danger" disabled={cart.length ? false : true} style={{ width: '100%' }}>Place Order</Button>
+                        <Link to='/order'><Button variant="danger" disabled={deliveryDetails.success && cart.length ? false : true} style={{ width: '100%' }}>Place Order</Button></Link>
 
                     </Box>
                 </Col>
             </Row>
-
         </Container>
     );
 };

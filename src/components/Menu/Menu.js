@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Card, CardGroup, Col, Container, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { foods } from '../../Database/foods';
 import { whyChoseUsCard } from '../../Database/whyChoseUs';
 import Breakfast from '../Breakfast/Breakfast';
@@ -42,7 +43,7 @@ const Menu = ({ cart, setCart }) => {
 
             </div>
             < div className="my-5 d-flex justify-content-center">
-                <Button variant="danger" disabled={cart.length ? false : true}>Checkout your Food</Button>
+                <Link to='/cart'><Button variant="danger" disabled={cart.length ? false : true}>Checkout your Food</Button></Link>
             </div>
             <div style={{ width: '600px' }}>
                 <h3>Why you Chose us?</h3>

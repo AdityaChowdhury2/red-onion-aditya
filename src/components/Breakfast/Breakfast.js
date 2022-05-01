@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { addOneItemToDb, addToDb, getStoredCart, removeOneItemFromDb } from '../../Database/fakedb';
 import { foods } from '../../Database/foods';
 import CardItem from '../CardItem/CardItem';

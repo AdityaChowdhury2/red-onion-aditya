@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Container, FormControl, InputGroup, Row, Button } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 const SingleItem = ({ singleItem, handleMinusButtonClick, handlePlusButtonClick, cart }) => {
     // console.log(singleItem);
@@ -18,20 +18,21 @@ const SingleItem = ({ singleItem, handleMinusButtonClick, handlePlusButtonClick,
                             <h1>{name}</h1>
                             <p>{description}</p>
                         </div>
-                        <div className="mt-3 d-flex justify-content-left">
+                        <div className="mt-3 d-flex justify-content-between" style={{ width: '60%' }}>
                             <h1 style={{ fontSize: '45px' }}>${fixedPrice}</h1>
                             <div style={{
                                 display: 'block',
                                 fontSize: '25px',
-                                margin: '6px 60px',
+                                margin: '6px',
                                 border: '1px solid red',
                                 borderRadius: '25px',
                                 padding: '5px',
+                                width: '120px'
 
-                            }}>
-                                <button style={{ margin: '0 10px', background: 'none', border: 'none' }} onClick={() => handleMinusButtonClick(food)}>-</button>
-                                <span style={{ margin: '0 10px' }}>{sameFood.quantity}</span>
-                                <button style={{ margin: '0 10px', background: 'none', border: 'none' }} onClick={() => handlePlusButtonClick(food)}>+</button>
+                            }} className='d-flex justify-content-around'>
+                                <button style={{ background: 'none', border: 'none' }} onClick={() => handleMinusButtonClick(food)}>-</button>
+                                <span style={{}}>{sameFood.quantity}</span>
+                                <button style={{ background: 'none', border: 'none' }} onClick={() => handlePlusButtonClick(food)}>+</button>
                             </div>
                         </div>
                     </Col>
